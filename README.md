@@ -17,12 +17,12 @@ Without these three characteristics, understanding a new concept is difficult.
 
 Objective
 =========
-Define what it is the example is trying to solve and why it is important.
+Define what the example is trying to solve and why it is important.
 
 Solution
 ========
-Define How it aims to solve the problem.  Consider inputs to an example, Why do we need them? What do they do?
+Define how it aims to solve the objective.  Consider inputs and parameters to an example, Why do we need them? What do they do? How do they change the output?
 
 Value
 =====
-With any example there is an outcome.  How do I interpret it? What can I do with it? Why is it valueable?
+Why is the solution valueable? How do I interpret it? What can I do with it?
