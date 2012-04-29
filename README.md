@@ -12,9 +12,7 @@ How do you do that?
 ===================
 
 An example must be in the form 
-  Objective
-  Solution
-  Value
+  Objective  ->   Solution  ->  Value
 Without these three characteristics, understanding a new concept is difficult.
 
 
