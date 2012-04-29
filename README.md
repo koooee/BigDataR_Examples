@@ -12,12 +12,17 @@ How do you do that?
 ===================
 
 An example must be in the form 
-  Objective  ->   Solution  ->  Value
+Objective
+Solution
+Value
+
 Without these three characteristics, understanding a new concept is difficult.
 
 
-Every Readme file to an example must contain these 3 sections in this order
-===========================================================================
+All README files to an example must contain 
+===========================================
+the 3 foundational elements
+===========================
 
 Objective:
 =========
@@ -25,11 +30,19 @@ Define what the example is trying to solve and why it is important.
 
 Solution:
 ========
-Define how it aims to solve the objective.  Consider inputs and parameters to an example, Why do we need them? What do they do? How do they change the output?
+Define how it aims to solve the objective.  
+Consider inputs and parameters to an example:
+Why do we need them?
+What do they do?
+How do they change the output?
 
 Value:
 ======
-Why is the solution valueable? How do I interpret it? What can I do with it?
+What is the outcome and why do we need it.
+
+Why is the solution valueable?
+How do I interpret it?
+What can I do with it?
 
 
 Disclaimer
