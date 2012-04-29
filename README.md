@@ -47,4 +47,5 @@ Disclaimer
 ----------
 Don't take all of the questions above in the literal sense and simply answer them.  
 The abstract thought here is these three items (Objective, Solution, Value) formulate a foundation for why we do something.  
+Understanding *why* we do something is half the battle when learning anything new.  
 If we can answer the foundational questions, we can build holistic examples. 
