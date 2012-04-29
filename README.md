@@ -19,8 +19,8 @@ An example must be in the form:
 Without these three characteristics, understanding a new concept is difficult.
 
 
-All README files to an example must contain the following items
-================================================================
+All README files to an example must contain the following
+=========================================================
 
 Objective:
 ---------
