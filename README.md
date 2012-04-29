@@ -30,3 +30,10 @@ Define how it aims to solve the objective.  Consider inputs and parameters to an
 Value:
 ======
 Why is the solution valueable? How do I interpret it? What can I do with it?
+
+
+Disclaimer
+==========
+Don't take all of the questions above in the literal sense and simply answer them.  
+The abstract thought here is these three items (Objective, Solution, Value) formulate a foundation for why we do something.  
+If we can answer the foundational questions, we can build holistic examples. 
