@@ -1,0 +1,11 @@
+What is this:
+This is an example of an example
+
+Objective:
+The purpose is to convay how one should structure examples when developing them for this project.
+
+Solution:
+I plan to do this through a very basic Graphlab example using the pmf command line demo.
+
+Value:
+This should serve as a reference whenever writing examples.  It will build a consistent model around how we create examples minimizing the need for users to navigate ambiguity.  It will also cut development time of examples since we can use a consistent model for how we think about them.
