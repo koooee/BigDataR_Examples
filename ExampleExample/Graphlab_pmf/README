@@ -1,32 +1,50 @@
 What is this:
 ============
-This is an example showing how to use parallel matrix factorization using the Graphlab command line tools.
+This is an example showing how to use parallel matrix factorization 
+using Graphlab's command line tools.
 
 Objective:
 =========
-we want to build a recommendation engine that recommends items to users, but we have a very large number of items and users and are
-interested in all interactions so we don't want to sample, yet, we are running into issues with traditional approaches.
+We want to build a recommendation engine that recommends items to users,
+but we have a very large number of items and users and are interested 
+in all interactions so we don't want to sample, yet, we are running 
+into issues with traditional approaches.
 
 Solution:
 =========
 Parallel Matrix Factorization. (Weighted ALS)
-A technique used to condense a large sparse matrix into a much smaller one without changing the meaning of the original.
-We are essentially saying: "Whatever is useful in this matrix, lets keep that and get rid of the rest"
-It works well when you have matricies with many rows and columns but very little data. 
-We will be using a custom built command line tool that is packaged with Graphlab called pmf.
-Inputs: A matrix (in matrix market format)
+A technique used to condense a large sparse matrix into a much smaller 
+one without changing the meaning of the original.
+(sparse just means there isn't a lot of data)
+
+We are essentially saying: 
+  "Whatever is useful in this matrix, lets keep that and get rid of the rest"
+
+It works well when you have matricies with many rows and columns but 
+very little data.  We will be using a custom built command line tool 
+that is packaged with Graphlab called pmf.
+
+Inputs: A large matrix with little data (in matrix market format)
 Parameters: 
-	    --scheduler - this is how tasks will be computed, this give us parallelism and control over how to compute things
-	    --matrix-market - tell graphlab that we are giving it a matrix in 'matrix market format' so it knows how to read it
-	    --lambda - this is a weight that will be applied to your matrix vectors, optimal value is found through trial and error
+	    --scheduler - this is how tasks will be computed
+	    		  this give us parallelism and control 
+			  over how to compute things
+			  round_robin -- loop
+			  max_iterations -- number of times
+			  block_size -- number of tasks to compute at a time
+	    --matrix-market - tell graphlab that we are giving it 
+	    		      a matrix in 'matrix market format' 
+			      so it knows how to read it
+	    --lambda - this is a weight that will be applied to your 
+	    	       matrix vectors, optimal value is found through 
+		       trial and error
 	    --npus - the number of cpus/cores to use in the computation
 
 Value:
 ======
-We now have a much smaller data rich (useful data) matrix to build a recommendation engine.
+We now have a much smaller data rich (useful data) 
+matrix to build a recommendation engine.
 
-
-
-
-
+Large Scale Problem on a Single Computer -- efficient use of resources
+Fast Computation -- Results faster and at scale
 
