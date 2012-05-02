@@ -29,10 +29,10 @@ Objective:
 Solution:
 ---------
 **Define how it aims to solve the objective.**  
-Consider inputs and parameters to an example:  
+Consider inputs, parameters, outputs 
 Why do we need them?  
 What do they do?  
-How do they change the output?  
+How do they change the output?
 
 Value:
 ------
