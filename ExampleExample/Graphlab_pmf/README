@@ -6,44 +6,64 @@ using Graphlab's command line tools.
 Objective:
 =========
 We want to build a recommendation engine that recommends items to users,
-but we have a very large number of items and users and are interested 
-in all interactions so we don't want to sample, yet, we are running 
-into issues with traditional approaches.
+but we have a very large number of items where traditional approaches
+do not scale.
 
 Solution:
 =========
-Parallel Matrix Factorization. (Weighted ALS)
+Parallel Matrix Factorization. (Alternating Least Squares)
 A technique used to condense a large sparse matrix into a much smaller 
-one without changing the meaning of the original.
-(sparse just means there isn't a lot of data)
+one while still preserving the original.
+Sparse in this case means not many users have rated items
 
 We are essentially saying: 
-  "Whatever is useful in this matrix, lets keep that and get rid of the rest"
+  "Can we take this big/huge matrix and make some smaller ones that
+   approximate the original"
 
-It works well when you have matricies with many rows and columns but 
-very little data.  We will be using a custom built command line tool 
-that is packaged with Graphlab called pmf.
+Think File Compression. We want a smaller file...it uses less resources
+and is easier to work with.
 
-Inputs: A large matrix with little data (in matrix market format)
+We will be using a custom built command line tool that is packaged with 
+Graphlab library for matrix factorization called pmf.
+
+Inputs: A large sparse (many user,item pairs but few rankings) matrix 
+in matrix market format.
+USER<TAB>ITEM<TAB>RANK
+http://math.nist.gov/MatrixMarket/formats.html
+
 Parameters: 
 	    --scheduler - this is how tasks will be computed
 	    		  this give us parallelism and control 
 			  over how to compute things
-			  round_robin -- loop
+			  round_robin -- cycle over users and items
 			  max_iterations -- number of times
-			  block_size -- number of tasks to compute at a time
+			  block_size -- should be 1
 	    --matrix-market - tell graphlab that we are giving it 
 	    		      a matrix in 'matrix market format' 
 			      so it knows how to read it
 	    --lambda - this is a weight that will be applied to your 
 	    	       matrix vectors, optimal value is found through 
-		       trial and error
+		       trial and error. prevents overfitting.
 	    --npus - the number of cpus/cores to use in the computation
+	    --D - the demension of the factorized matricies. too small
+	          results in fast run time but less accuracy. Too Large
+		  results in slow runtime but more accurate. Typical values
+		  are 20 -> 50.
+            --maxval - maximum value of allowed rating
+	    --minval - minimum value of allowed rating
+
+Outputs:
+The output are two matrices U and V. In matrix U the rows are feature vectors
+for users where the first row is user 1, second user 2 ... In matrix V the rows
+are feature vectors for movies where the first row is movie 1, second movie 2 ...
+To get a prediction for user 1 movie 1 simply do a dot product on the first two rows
+of the matrix files U and V.  
 
 Value:
 ======
-We now have a much smaller data rich (useful data) 
-matrix to build a recommendation engine.
+We now have a much smaller matricies to work with and build recommendations from.
+We did a Large Scale Problem on a Single Compter -- efficient use of resources
+We computed the results very fast and at scale -- 
 
 Large Scale Problem on a Single Computer -- efficient use of resources
 Fast Computation -- Results faster and at scale
