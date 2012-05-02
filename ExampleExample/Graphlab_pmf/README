@@ -29,7 +29,8 @@ Graphlab library for matrix factorization called pmf.
 Inputs: A large sparse (many user,item pairs but few rankings) matrix 
 in matrix market format.
 USER<TAB>ITEM<TAB>RANK
-http://math.nist.gov/MatrixMarket/formats.html
+Additional Information with Examples Additional resources:
+http://bickson.blogspot.com/search/label/Matrix%20Market
 
 Parameters: 
 	    --scheduler - this is how tasks will be computed
@@ -67,4 +68,13 @@ We computed the results very fast and at scale --
 
 Large Scale Problem on a Single Computer -- efficient use of resources
 Fast Computation -- Results faster and at scale
+cost:latency ratio is low
 
+Additional resources:
+GraphLab pmf website: http://graphlab.org/pmf.html
+
+Matrix market format description incuding examples: 
+http://bickson.blogspot.com/search/label/Matrix%20Market
+
+Dany Bickson Has a great blog discussing large scale machine learning with
+some great examples! http://bickson.blogspot.com
