@@ -23,13 +23,16 @@ We are essentially saying:
 Think File Compression. We want a smaller file...it uses less resources
 and is easier to work with.
 
+Don't Think File Compression because we can't get back to the original
+matrix, we only have an approximation.
+
 We will be using a custom built command line tool that is packaged with 
 Graphlab library for matrix factorization called pmf.
 
 Inputs: A large sparse (many user,item pairs but few rankings) matrix 
 in matrix market format.
 USER<TAB>ITEM<TAB>RANK
-Additional Information with Examples Additional resources:
+Additional Information with Examples
 http://bickson.blogspot.com/search/label/Matrix%20Market
 
 Parameters: 
@@ -62,13 +65,15 @@ of the matrix files U and V.
 
 Value:
 ======
-We now have a much smaller matricies to work with and build recommendations from.
-We did a Large Scale Problem on a Single Compter -- efficient use of resources
-We computed the results very fast and at scale -- 
-
-Large Scale Problem on a Single Computer -- efficient use of resources
+We now have much smaller matricies to work with and build recommendations from.
+Large Scale Problem on a Single Compter -- efficient use of resources (Multicore)
 Fast Computation -- Results faster and at scale
 cost:latency ratio is low
+
+
+
+
+
 
 Additional resources:
 GraphLab pmf website: http://graphlab.org/pmf.html
@@ -76,5 +81,7 @@ GraphLab pmf website: http://graphlab.org/pmf.html
 Matrix market format description incuding examples: 
 http://bickson.blogspot.com/search/label/Matrix%20Market
 
-Dany Bickson has a great blog discussing large scale machine learning with
-some great examples! http://bickson.blogspot.com
+Danny Bickson has a great blog discussing large scale machine learning with
+some great examples, he is a principal scientist in CMUs Machine Learning
+Department and a big contributor to the Graphlab project.
+http://bickson.blogspot.com
