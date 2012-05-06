@@ -20,6 +20,8 @@
 
 # TO RUN: ./pmf.sh
 
+# Mahout -- Distributed Across Multiple Computers -- (you can get multi core with pseudo-distributed mode but is a bit outside the usecase)
+# Graphlab -- Distributed Across Multiple Cores (they are working on multiple computers)
 
 WORK_DIR=/tmp
 DATASET=movielense_mm.mahout.txt
