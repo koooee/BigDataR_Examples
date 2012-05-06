@@ -1,0 +1,48 @@
+What is this:
+=============
+This is an example showing how to use parallel matrix factorization 
+using Mahout's command line tools.
+
+Objective:
+==========
+We want to build a recommendation engine that recommends items to users,
+but we have a very large number of items where traditional approaches
+do not scale.
+
+Solution:
+=========
+Parallel Matrix Factorization. (Alternating Least Squares)
+A technique used to condense a large sparse matrix into a much smaller 
+one while still preserving the original.
+Sparse in this case means not many users have rated items
+
+We are essentially saying: 
+  "Can we take this big/huge matrix and make some smaller ones that
+   approximate the original"
+
+Think File Compression. We want a smaller file...it uses less resources
+and is easier to work with.
+
+Don't Think File Compression because we can't get back to the original
+matrix, we only have an approximation.
+
+We will be using the mahout command line tools to do this. 
+
+Inputs: 
+	A large sparse (many user,item pairs but few rankings) matrix 
+	in matrix market format.
+	USER<TAB>ITEM<TAB>RANK
+
+Parameters: 
+	    --input - path to dataset
+	    --output - where you want to store the recommendations
+    	    --tempDir - where should mahout do it's under-the-covers work
+	    --numFeatures - the number of interesting features you want to keep
+	    --numIterations - how many times should we run until we find a stopping point
+	    --lambda - what weight should we apply to the feature vector
+                       (optimal is found through holdout tests)
+
+Output:
+	U and V
+
+Value:
