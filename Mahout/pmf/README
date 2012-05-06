@@ -47,8 +47,8 @@ Output:
 	The output are two matrices U and V. In matrix U the rows are feature vectors
 	for users where the first row is user 1, second user 2 ... In matrix V the 
 	rows are feature vectors for movies where the first row is movie 1, second 
-	movie 2 ... To get a prediction for user 1 movie 1 simply do a dot product on 
-	the first two rows of the matrix files U and V.  
+	movie 2 ... To get a prediction for user 1 movie 1 simply do a dot product
+	on the first two rows of the matrix files U and V.  
 
 Value:
 ======
