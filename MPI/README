@@ -1,0 +1,11 @@
+Objective
+---------
+Provide examples on how to write parallel programs with MPI and BigDataR Linux
+
+Solution
+--------
+We aim to do this through a series of examples that support some of the major constructs in MPI.
+
+Value
+-----
+Be able to build your own basic distributed programs with BigDataR Linux
