@@ -16,9 +16,10 @@ int main(int argc, char *argv[])
 
   /* openMP is an api that allows multi-core programming through use of compiler directives */
   #pragma omp parallel /* Tell the compiler to do this for every core on the processor */
+  {
+    printf("omp thread %d on node %s\n", omp_get_thread_num(), nodename); /* This should print a line for every core on the processor */
+  } /* END omp parallel region */
 
-  printf("omp thread %d on node %s\n", omp_get_thread_num(), nodename); /* This should print a line for every core on the processor */
-  
   MPI_Finalize(); /* Kill MPI Environment */
   return 0;
 }
