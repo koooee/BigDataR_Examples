@@ -4,5 +4,5 @@
 # mpiexec is an alias for BigDataR linux that is auto configured based on the number of nodes for the cluster configuration
 #         you can view it's contents by cat ~/.bash_aliases | grep mpiexec
 
-mpicc -fopenmp -o mpiomphello mpi_omp_hello_world.c
-mpiexec mpiomphello
+mpicc -fopenmp -o hello mpi_omp_hello_world.c
+echo "Now run this command: mpiexec $PWD/hello"
