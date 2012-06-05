@@ -8,5 +8,8 @@ We used MPI as a communication layer between nodes and OMP to leverage multiple 
 
 Value
 -----
-Understanding of how to compile a simple program with both constructs.
+Understanding of how to compile a simple program with both parallel constructs.
 Extreme control over parallelism at the expense of programming complexity.
+
+*Note*
+The output will be in an order you might not expect, this is because we aren't doing any sort of barrier to ensure some processes print before others
