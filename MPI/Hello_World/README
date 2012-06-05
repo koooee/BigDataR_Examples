@@ -1,0 +1,12 @@
+Objective
+---------
+The purpose of this example is to show how you can mix multiple parallel constructs in a single program.
+
+Solution
+--------
+We used MPI as a communication layer between nodes and OMP to leverage multiple cores on the processors of each node.
+
+Value
+-----
+Understanding of how to compile a simple program with both constructs.
+Extreme control over parallelism at the expense of programming complexity.
