@@ -1,0 +1,11 @@
+Objective
+---------
+Educate users on how to use the pmf commandline utilities of Graphlab
+
+Solution
+--------
+Use this directory to house various scripts demonstrating the different pmf 'runlevels' graphlab has.
+
+Value
+-----
+Rapid learning of pmf commandline utilities.

@@ -1,0 +1,1 @@
+pmf /home/play/Datasets/Graphlab/smallnetflix_mm 16 --matrixmarket=true --scheduler="round_robin(max_iterations=10,block_size=1)" --rbm_scaling=1 --rbm_bins=6 --rbm_alpha=0.06 --rbm_beta=.1 --ncpus=8 --minval=1 --maxval=5 --rbm_mult_step_dec=0.8
