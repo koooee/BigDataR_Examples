@@ -39,6 +39,16 @@ Va = map(lambda s: s.replace("\n", ""), V.readlines()[4:]);
 
 # Iterate through ever user and movie pair.
 for i,user in enumerate(Ua):
+    topten = [0]*10
+    recs = [0]*10
+
     for j,movie in enumerate(Va):
-        print "User {} prediction for movie {} is {}".format(i, j, convert_and_multiply(user,movie))
+        p = convert_and_multiply(user, movie)
+        m = min(topten)
+        if p > m:
+            idx = topten.index(m)
+            topten[idx] = p
+            recs[idx] = j
+    
+    print "Recommendations for user {0} {1}".format(i, recs)
 
