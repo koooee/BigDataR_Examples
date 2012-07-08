@@ -2,8 +2,11 @@
 # This was an example from Danny Bickson:
 # http://graphlab.org/pmf.html
 
+# Get number of cores
+cpus=$(cat /proc/cpuinfo | grep -c processor)
+
 # Generate Factorization
-pmf /home/play/Datasets/Graphlab/movielens_mm 0 --scheduler="round_robin(max_iterations=10,block_size=1)" --matrixmarket=true --lambda=0.065 --ncpus=2
+pmf /home/play/Datasets/Graphlab/movielens_mm 0 --scheduler="round_robin(max_iterations=10,block_size=1)" --matrixmarket=true --lambda=0.065 --ncpus $cpus
 
 # Build Recommendations -- For Larger Instances change the number of cpus to the number of cores you have
 if [ -f output ]; then rm output; fi
@@ -12,7 +15,7 @@ if [ -f outpute ]; then rm outpute; fi
 ln -s /home/play/Datasets/Graphlab/movielens*.U output
 ln -s /home/play/Datasets/Graphlab/movielens*.V outpute
 
-glcluster output 8 3 0 --matrixmarket=true --training_ref="/home/play/Datasets/Graphlab/movielens_mm" --ncpus 2 && 
+glcluster output 8 3 0 --matrixmarket=true --training_ref="/home/play/Datasets/Graphlab/movielens_mm" --ncpus $cpus && 
 echo "***************************************************" && 
 echo "****************** Recommendations ****************" && 
 echo "***************************************************" &&
