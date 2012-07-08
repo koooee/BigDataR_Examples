@@ -11,7 +11,12 @@ if [ -f outpute ]; then rm outpute; fi
 
 ln -s /home/play/Datasets/Graphlab/movielens*.U output
 ln -s /home/play/Datasets/Graphlab/movielens*.V outpute
-glcluster output 8 3 0 --matrixmarket=true --training_ref="/home/play/Datasets/Graphlab/movielens_mm" --ncups=2 && head output.recommended-items.mtx
+
+glcluster output 8 3 0 --matrixmarket=true --training_ref="/home/play/Datasets/Graphlab/movielens_mm" --ncpus 2 && 
+echo "***************************************************" && 
+echo "****************** Recommendations ****************" && 
+echo "***************************************************" &&
+head output*.recommended-items.mtx
 
 #	    --scheduler - this is how tasks will be computed
 #	    		  this give us parallelism and control 
