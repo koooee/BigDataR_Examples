@@ -27,12 +27,24 @@ WORK_DIR=/tmp
 DATASET=movielense_mm.mahout.txt
 DATASET_FULL_PATH=/home/play/Datasets/Mahout/movielens_mm.mahout.txt
 
-# are we running local or hadoop?
+# are we running local or hadoop? -- not the best way to do this
 IS_HADOOP=`jps | cut -d" " -f2 | grep -c ^NameNode`
 
-if [ $IS_HADOOP -eq 1 ]; then # we have hadoop running
+if [[ "$IS_HADOOP" == "1" && "$MAHOUT_LOCAL" == "" ]] ; then # we have hadoop running
+    echo "Using Hadoop, cleaning up"
+    # Clean up, just in case -- we can ignore errors here
+    hadoop fs -rmr ${WORK_DIR}/dataset
+    hadoop fs -rmr ${WORK_DIR}/als
+    hadoop fs -rmr ${WORK_DIR}/recommendations
+    
     # ensure the dataset exists
     (hadoop fs -put $DATASET_FULL_PATH $DATASET 2>&1) > /dev/null
+else
+    echo "Running Local, cleaning up"
+    rm -r ${WORK_DIR}/dataset
+    rm -r ${WORK_DIR}/als
+    rm -r ${WORK_DIR}/recommendations
+    DATASET=$DATASET_FULL_PATH
 fi
 
 echo "creating work directory at ${WORK_DIR}"
@@ -53,7 +65,7 @@ mahout evaluateFactorization --input ${WORK_DIR}/dataset/probeSet/ --output ${WO
 # compute recommendations
 mahout recommendfactorized --input ${WORK_DIR}/als/out/userRatings/ --output ${WORK_DIR}/recommendations/ \
     --userFeatures ${WORK_DIR}/als/out/U/ --itemFeatures ${WORK_DIR}/als/out/M/ \
-    --numRecommendations 6 --maxRating 5
+    --numRecommendations 6 --maxRating 5 --tempDir ${WORK_DIR}/als/recTemp
 
 # print the error
 echo -e "\nRMSE is:\n"
