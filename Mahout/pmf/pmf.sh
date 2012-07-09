@@ -79,7 +79,7 @@ echo -e "\n"
 
 echo -e "\nSample recommendations:\n"
 if [ $IS_HADOOP -eq 1 ]; then
-    hadoop fs -cat ${WORK_DIR}/recommendations/part-m-00000;
+    hadoop fs -cat ${WORK_DIR}/recommendations/part-m-00000 | shuf | head 
 else
     shuf ${WORK_DIR}/recommendations/part-m-00000 | head
 fi
