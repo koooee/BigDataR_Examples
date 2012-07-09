@@ -28,7 +28,9 @@ DATASET=movielense_mm.mahout.txt
 DATASET_FULL_PATH=/home/play/Datasets/Mahout/movielens_mm.mahout.txt
 
 # are we running local or hadoop?
-if [ `jps | cut -d" " -f2 | grep -c ^NameNode` -eq 1 ]; then # we have hadoop running
+IS_HADOOP=`jps | cut -d" " -f2 | grep -c ^NameNode`
+
+if [ $IS_HADOOP -eq 1 ]; then # we have hadoop running
     # ensure the dataset exists
     (hadoop fs -put $DATASET_FULL_PATH $DATASET 2>&1) > /dev/null
 fi
@@ -55,9 +57,19 @@ mahout recommendfactorized --input ${WORK_DIR}/als/out/userRatings/ --output ${W
 
 # print the error
 echo -e "\nRMSE is:\n"
-cat ${WORK_DIR}/als/rmse/rmse.txt
+if [ $IS_HADOOP -eq 1 ]; then 
+    hadoop fs -cat ${WORK_DIR}/als/rmse/rmse.txt;
+else
+    cat ${WORK_DIR}/als/rmse/rmse.txt;
+fi
+
 echo -e "\n"
 
 echo -e "\nSample recommendations:\n"
-shuf ${WORK_DIR}/recommendations/part-m-00000 | head
+if [ $IS_HADOOP -eq 1 ]; then
+    hadoop fs -cat ${WORK_DIR}/recommendations/part-m-00000;
+else
+    shuf ${WORK_DIR}/recommendations/part-m-00000 | head
+fi
+
 echo -e "\n\n"
