@@ -6,7 +6,7 @@ select
   category
   ,sku
   ,count(*)
-from small_data_train a
+from big_data_train a
 group by
   category
   ,sku
@@ -25,3 +25,5 @@ where a.sku in (
       order by b.count desc
       limit 5
 );
+
+COPY top_5_skus_by_category TO '/mnt/top_5_skus_by_category' WITH CSV;
