@@ -59,7 +59,7 @@ for line in f.readlines():
                 recs[idx] = j
         
         for item in recs:
-            predictions.write(str(item) + "\t")
+            predictions.write(str(item) + " ")
 
         predictions.write('\n')
 
@@ -76,7 +76,7 @@ for line in f.readlines():
 
         if length == 0:
             for item in tap_out:
-                predictions.write(str(item) + "\t")
+                predictions.write(str(item) + " ")
 
             predictions.write('\n')
 
@@ -86,7 +86,7 @@ for line in f.readlines():
                 count += 1
                 
             for item in categories[line_a[2]]:
-                predictions.write(str(item) + "\t")
+                predictions.write(str(item) + " ")
                 
             predictions.write('\n')
             
