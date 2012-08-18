@@ -22,32 +22,31 @@
 # this is meant to run on a fresh boot of BigDataR
 # I'm gun-slingin' here so not doing a ton of error checking
 
-if [ ! `mountpoint -q /mnt` ]; then
-    echo "You must mount /mnt to some device"
-    echo "Usually a command like: sudo mount /dev/xvdf /mnt"
-    exit 1
-fi
+mountpoint -q /mnt || \
+(echo "You must mount /mnt to some device" &&
+echo "Usually a command like: sudo mount /dev/xvdf /mnt" &&
+exit 1)
+
 
 # don't panic .. this is symlinked to /mnt
 pushd ~/work_in_here
 
 # get the data from BigDataR repo (aka Dropbox)
-wget -O - https://www.dropbox.com/s/27ijs01u0s99l3m/small_data.tar.gz | tar -x
-wget -O - https://www.dropbox.com/s/iv2y12duyvwuiv1/big_data.tar.gz | tar -x
-wget -O - https://www.dropbox.com/s/dfuqu00pm0jlay1/small_product_data.xml.gz | tar -x
-wget -O - https://www.dropbox.com/s/ovx1n98sid4dw5g/product_data.tar.gz | tar -x
+wget -O - http://www.winthropgaming.com/small_data.tar.gz | tar -xz
+wget -O - http://www.winthropgaming.com/big_data.tar.gz | tar -xz
+(wget -O - http://www.winthropgaming.com/small_product_data.xml.gz | gunzip) > small_product_data.xml
+wget -O - http://www.winthropgaming.com/product_data.tar.gz | tar -xz
 
 # Scrub and load data into postgres
 # remove the escape character as not to confuse postgres loader
 echo -n "Scrubbing Data..."
 sed -i 's/\\//g' small_data/*.csv big_data/*.csv
+sed -i '1d' small_data/*.csv big_data/*.csv
 echo "Done."
 
 # generate sql to load data
 cat <<EOF > temp.sql
--- drop table small_data;
--- drop table big_data;
-create table small_data_train (
+create table if not exists small_data_train (
        userid varchar(100)
        ,sku varchar(50)
        ,category varchar(20)
@@ -56,7 +55,15 @@ create table small_data_train (
        ,query_time timestamp without time zone
 );
 
-create table small_data_test (
+create table if not exists small_data_test (
+       userid varchar(100)
+       ,category varchar(20)
+       ,query varchar(2000)
+       ,click_time timestamp without time zone
+       ,query_time timestamp without time zone
+);
+
+create table if not exists big_data_train (
        userid varchar(100)
        ,sku varchar(50)
        ,category varchar(20)
@@ -65,41 +72,38 @@ create table small_data_test (
        ,query_time timestamp without time zone
 );
 
-create table big_data_train (
+create table if not exists big_data_test (
        userid varchar(100)
-       ,sku varchar(50)
        ,category varchar(20)
        ,query varchar(2000)
        ,click_time timestamp without time zone
        ,query_time timestamp without time zone
 );
 
-create table big_data_test (
-       userid varchar(100)
-       ,sku varchar(50)
-       ,category varchar(20)
-       ,query varchar(2000)
-       ,click_time timestamp without time zone
-       ,query_time timestamp without time zone
-);
+COPY small_data_train (userid, sku, category, query, click_time, query_time)
+FROM '/mnt/small_data/train_small.csv'
+WITH CSV;
 
-COPY small_data_train (userid, sku, category, click_time, query_time)
-FROM 'small_data/train_small.csv'
-WITH DELIMITER E'\x2c';
+COPY small_data_test (userid, category, query, click_time, query_time)
+FROM '/mnt/small_data/test_small.csv'
+WITH CSV;
 
-COPY small_data_test (userid, sku, category, click_time, query_time)
-FROM 'small_data/test_small.csv'
-WITH DELIMITER E'\x2c';
+COPY big_data_train (userid, sku, category, query, click_time, query_time)
+FROM '/mnt/big_data/train_big.csv'
+WITH CSV;
 
-COPY big_data_train (userid, sku, category, click_time, query_time)
-FROM 'big_data/train_big.csv'
-WITH DELIMITER E'\x2c';
-
-COPY big_data_test (userid, sku, category, click_time, query_time)
-FROM 'big_data/test_big.csv'
-WITH DELIMITER E'\x2c';
+COPY big_data_test (userid, category, query, click_time, query_time)
+FROM '/mnt/big_data/test_big.csv'
+WITH CSV;
 
 EOF
+
+# Start Postgres Database
+sudo mv /usr/local/pgsql/data /mnt/
+sudo ln -s /mnt/data /usr/local/pgsql/data
+sudo chown play -R /mnt/data
+((postgres -D /mnt/data 2>&1) > .pgsql.log) &
+sudo -u postgres createuser play
 
 psql -c 'CREATE DATABASE acm' test;
 
@@ -121,3 +125,7 @@ echo "Success!"
 
 # now we loads the precious...
 psql -f temp.sql acm;
+
+popd
+
+psql acm;
