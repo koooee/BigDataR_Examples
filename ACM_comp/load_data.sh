@@ -27,6 +27,7 @@ mountpoint -q /mnt || \
 echo "Usually a command like: sudo mount /dev/xvdf /mnt" &&
 exit 1)
 
+sudo chown -R play /mnt
 
 # don't panic .. this is symlinked to /mnt
 pushd ~/work_in_here
