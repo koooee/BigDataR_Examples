@@ -3,8 +3,7 @@ import numpy
 import csv
 
 help = """
-this script takes two parameters, the file path to matrix U and matrix V from pmf.sh
-usage: python gen_recommendations.py /path/to/matrix/U /path/to/matrix/V
+make sure the files exist
 """
 
 predictions = open('/mnt/predictions', 'w')
@@ -60,7 +59,6 @@ for line in f.readlines():
                 recs[idx] = j
         
         for item in recs:
-            print str(item)
             predictions.write(str(item) + "\t")
 
         predictions.write('\n')
