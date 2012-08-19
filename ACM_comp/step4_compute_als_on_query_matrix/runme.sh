@@ -1,7 +1,9 @@
 # Extract the query matrix
 # convert it to matrix market format for graphlab
 # run als to get matrix decomposition of query features and product features to use for prediction
-psql -f query_and_click_matrix.sql acm;
+
+# no need to run this since these exist on the image 
+#psql -f query_and_click_matrix.sql acm;
 
 ../helpers/convert_to_matrix_market_format.sh /mnt/query_matrix
 
