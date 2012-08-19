@@ -81,8 +81,11 @@ for line in f.readlines():
                     idx = top5.index(m)
                     top5[idx] = p
                     recs[idx] = j
-            
-            prediction_cache[line_a[1]] = recs;
+                    # Need to do this since we are using MAP
+                    top5.sort(reverse=True)
+
+            temp = sorted(zip(recs, top5), key=lambda k: k[1])
+            recs, top5 = zip(*temp)
             predictions.write(" ".join(map(sku_lookup, recs)) + "\n")
         
 
