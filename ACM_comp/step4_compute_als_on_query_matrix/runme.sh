@@ -3,7 +3,8 @@
 # run als to get matrix decomposition of query features and product features to use for prediction
 
 # no need to run this since these exist on the image 
-#psql -f query_and_click_matrix.sql acm;
+(psql -f query_and_click_matrix.sql acm 2>&1) > /dev/null
+if [ $? -eq 0 ]; then echo "Created query and click matrix"; else echo "Didn't create query and click matrix, check if they already exist"; fi
 
 ../helpers/convert_to_matrix_market_format.sh /mnt/query_matrix
 

@@ -1,8 +1,9 @@
 **************
 * Objective: *
 **************
-Generate 2 basic benchmarks so we can recommend to users who existed in the train set but don't exist in the test set
-as well as recommend to user we simply just never knew about or product categories we've never seen before
+Generate a top 5 category benchmark so we can recommend to querys we've never seen before
+Generate a top 5 sku benchmark so we can recommend to categories we've never seen before
+
 *************
 * Solution: *
 *************
