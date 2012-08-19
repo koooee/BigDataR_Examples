@@ -1,6 +1,6 @@
 -- Get the top 5 products for each category
 
-create table category_counts as
+create table small_category_counts as
 select
   category
   ,sku
@@ -11,7 +11,7 @@ group by
   ,sku
 order by count(*);
 
-create table top_5_skus_by_category as 
+create table small_top_5_skus_by_category as 
 select
   a.category
   ,a.sku
@@ -24,4 +24,4 @@ where a.sku in (
       limit 5
 );
 
-COPY top_5_skus_by_category TO '/mnt/top_5_skus_by_category' WITH CSV;
+COPY small_top_5_skus_by_category TO '/mnt/small_top_5_skus_by_category' WITH CSV;
