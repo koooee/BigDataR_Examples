@@ -22,10 +22,10 @@
 # this is meant to run on a fresh boot of BigDataR
 # I'm gun-slingin' here so not doing a ton of error checking
 
-mountpoint -q /mnt || \
-(echo "You must mount /mnt to some device" &&
-echo "Usually a command like: sudo mount /dev/xvdf /mnt" &&
-exit 1)
+# mountpoint -q /mnt || \
+# (echo "You must mount /mnt to some device" &&
+# echo "Usually a command like: sudo mount /dev/xvdf /mnt" &&
+# exit 1)
 
 sudo chown -R play /mnt
 
@@ -33,10 +33,10 @@ sudo chown -R play /mnt
 pushd ~/work_in_here
 
 # get the data from BigDataR repo (aka Dropbox)
-wget -O - http://www.winthropgaming.com/small_data.tar.gz | tar -xz
-wget -O - http://www.winthropgaming.com/big_data.tar.gz | tar -xz
-(wget -O - http://www.winthropgaming.com/small_product_data.xml.gz | gunzip) > small_product_data.xml
-wget -O - http://www.winthropgaming.com/product_data.tar.gz | tar -xz
+# wget -O - http://www.winthropgaming.com/small_data.tar.gz | tar -xz
+# wget -O - http://www.winthropgaming.com/big_data.tar.gz | tar -xz
+# (wget -O - http://www.winthropgaming.com/small_product_data.xml.gz | gunzip) > small_product_data.xml
+# wget -O - http://www.winthropgaming.com/product_data.tar.gz | tar -xz
 
 # Scrub and load data into postgres
 # remove the escape character as not to confuse postgres loader
