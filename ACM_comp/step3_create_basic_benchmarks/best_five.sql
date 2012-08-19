@@ -2,7 +2,7 @@ create table best_five as
 select
   sku
   ,count(*)
-from big_data_train
+from small_data_train
 group by sku
 order by count(*) desc
 limit 5;

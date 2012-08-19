@@ -59,7 +59,7 @@ except:
 Ua = map(lambda s: s.replace("\n", ""), U.readlines()[4:]);
 Va = map(lambda s: s.replace("\n", ""), V.readlines()[4:]);
 
-f = open('/mnt/big_data_test_file', 'r')
+f = open('/mnt/small_data_test_file', 'r')
 
 print "Generating Predictions ..."
 prediction_cache = {}

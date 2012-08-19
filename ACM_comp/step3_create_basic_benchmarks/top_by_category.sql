@@ -5,7 +5,7 @@ select
   category
   ,sku
   ,count(*)
-from big_data_train a
+from small_data_train a
 group by
   category
   ,sku
