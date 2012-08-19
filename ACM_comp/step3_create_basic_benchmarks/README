@@ -1,0 +1,15 @@
+**************
+* Objective: *
+**************
+Generate 2 basic benchmarks so we can recommend to users who existed in the train set but don't exist in the test set
+as well as recommend to user we simply just never knew about or product categories we've never seen before
+*************
+* Solution: *
+*************
+best_five.sql -- Simply compute the top 5 products with the most clicks.  We will use this when we have no data on anyone.
+top_by_category.sql -- Compute the top 5 clicked on products for every product category.  We will use this when the user doesn't exist in train but exists in test
+
+**********
+* Value: *
+**********
+Help us recommend users even though we don't have much information on them

@@ -1,0 +1,23 @@
+**************
+* Objective: *
+**************
+Compute ALS on the query click matrix.
+I give an explanation of ALS here: https://github.com/koooee/BigDataR_Examples/tree/master/ExampleExample/Graphlab_pmf
+
+*************
+* Solution: *
+*************
+First we need a query matrix so we write some sql to extract that for us.
+I pull back the click matrix as well, just for giggles.
+
+Then we use graphlab to compute the factorization
+
+**********
+* Value: *
+**********
+How you can poorly use matrix factorizations with a blend of other basic benchmarks to generate recommendations
+
+
+Notes:
+A query matrix is the quantity of time a query,sku combination exists together
+A click matrix is the quantity of times a user clicked on a given sku

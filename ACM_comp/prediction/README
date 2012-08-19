@@ -1,0 +1,17 @@
+**************
+* Objective: *
+**************
+Compute recommendations for the test set
+
+*************
+* Solution: *
+*************
+Blend our 3 techniques together
+Top 5
+Top 5 Category
+ALS on query matrix
+
+**********
+* Value: *
+**********
+Hopefully, a good starting point to work off of.  If not, back to the drawing board.

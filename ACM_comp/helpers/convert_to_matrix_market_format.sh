@@ -1,3 +1,8 @@
+#!/bin/bash
+# Takes a single file in csv format with
+# id,id,rank
+# and converts it to matrix market format
+
 echo -n "Counting Rows..."
 TOTAL_ROWS=`cat $1 | cut -d, -f1 | sort | uniq | grep -c ^`
 echo "$TOTAL_ROWS"
