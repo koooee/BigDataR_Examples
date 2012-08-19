@@ -6,7 +6,7 @@ help = """
 make sure the files exist
 """
 
-predictions = open('/mnt/predictions', 'w')
+# predictions = open('/mnt/predictions', 'w')
 
 # when we dont have enough recommendations -- randomly select these
 top_skus = list()
@@ -58,10 +58,8 @@ for line in f.readlines():
                 top5[idx] = p
                 recs[idx] = j
         
-        for item in recs:
-            predictions.write(str(item) + " ")
-
-        predictions.write('\n')
+        print " ".join(map(str, recs))
+        
 
     else:
         # we haven't seen this query before
@@ -75,21 +73,11 @@ for line in f.readlines():
             length=0
 
         if length == 0:
-            for item in tap_out:
-                predictions.write(str(item) + " ")
-
-            predictions.write('\n')
+            print " ".join(map(str, tap_out))
 
         else:
             while len(categories[line_a[2]]) < 5:
                 categories[line_a[2]].append(top_skus[count])
                 count += 1
-                
-            for item in categories[line_a[2]]:
-                predictions.write(str(item) + " ")
-                
-            predictions.write('\n')
             
-        
-        
-    
+            print " ".join(categories[line_a[2]])
