@@ -40,73 +40,73 @@ pushd ~/work_in_here
 
 # Scrub and load data into postgres
 # remove the escape character as not to confuse postgres loader
-echo -n "Scrubbing Data..."
-sed -i 's/\\//g' small_data/*.csv big_data/*.csv
-sed -i '1d' small_data/*.csv big_data/*.csv
-echo "Done."
+# echo -n "Scrubbing Data..."
+# sed -i 's/\\//g' small_data/*.csv big_data/*.csv
+# sed -i '1d' small_data/*.csv big_data/*.csv
+# echo "Done."
 
 # generate sql to load data
-cat <<EOF > temp.sql
-create table if not exists small_data_train (
-       userid varchar(100)
-       ,sku varchar(50)
-       ,category varchar(20)
-       ,query varchar(2000)
-       ,click_time timestamp without time zone
-       ,query_time timestamp without time zone
-);
+# cat <<EOF > temp.sql
+# create table if not exists small_data_train (
+#        userid varchar(100)
+#        ,sku varchar(50)
+#        ,category varchar(20)
+#        ,query varchar(2000)
+#        ,click_time timestamp without time zone
+#        ,query_time timestamp without time zone
+# );
 
-create table if not exists small_data_test (
-       userid varchar(100)
-       ,category varchar(20)
-       ,query varchar(2000)
-       ,click_time timestamp without time zone
-       ,query_time timestamp without time zone
-);
+# create table if not exists small_data_test (
+#        userid varchar(100)
+#        ,category varchar(20)
+#        ,query varchar(2000)
+#        ,click_time timestamp without time zone
+#        ,query_time timestamp without time zone
+# );
 
-create table if not exists big_data_train (
-       userid varchar(100)
-       ,sku varchar(50)
-       ,category varchar(20)
-       ,query varchar(2000)
-       ,click_time timestamp without time zone
-       ,query_time timestamp without time zone
-);
+# create table if not exists big_data_train (
+#        userid varchar(100)
+#        ,sku varchar(50)
+#        ,category varchar(20)
+#        ,query varchar(2000)
+#        ,click_time timestamp without time zone
+#        ,query_time timestamp without time zone
+# );
 
-create table if not exists big_data_test (
-       userid varchar(100)
-       ,category varchar(20)
-       ,query varchar(2000)
-       ,click_time timestamp without time zone
-       ,query_time timestamp without time zone
-);
+# create table if not exists big_data_test (
+#        userid varchar(100)
+#        ,category varchar(20)
+#        ,query varchar(2000)
+#        ,click_time timestamp without time zone
+#        ,query_time timestamp without time zone
+# );
 
-COPY small_data_train (userid, sku, category, query, click_time, query_time)
-FROM '/mnt/small_data/train_small.csv'
-WITH CSV;
+# COPY small_data_train (userid, sku, category, query, click_time, query_time)
+# FROM '/mnt/small_data/train_small.csv'
+# WITH CSV;
 
-COPY small_data_test (userid, category, query, click_time, query_time)
-FROM '/mnt/small_data/test_small.csv'
-WITH CSV;
+# COPY small_data_test (userid, category, query, click_time, query_time)
+# FROM '/mnt/small_data/test_small.csv'
+# WITH CSV;
 
-COPY big_data_train (userid, sku, category, query, click_time, query_time)
-FROM '/mnt/big_data/train_big.csv'
-WITH CSV;
+# COPY big_data_train (userid, sku, category, query, click_time, query_time)
+# FROM '/mnt/big_data/train_big.csv'
+# WITH CSV;
 
-COPY big_data_test (userid, category, query, click_time, query_time)
-FROM '/mnt/big_data/test_big.csv'
-WITH CSV;
+# COPY big_data_test (userid, category, query, click_time, query_time)
+# FROM '/mnt/big_data/test_big.csv'
+# WITH CSV;
 
-EOF
+# EOF
 
 # Start Postgres Database
-sudo mv /usr/local/pgsql/data /mnt/
-sudo ln -s /mnt/data /usr/local/pgsql/data
+# sudo mv /usr/local/pgsql/data /mnt/
+# sudo ln -s /mnt/data /usr/local/pgsql/data
 sudo chown play -R /mnt/data
 ((postgres -D /mnt/data 2>&1) > .pgsql.log) &
-sudo -u postgres createuser play
+# sudo -u postgres createuser play
 
-psql -c 'CREATE DATABASE acm' test;
+# psql -c 'CREATE DATABASE acm' test;
 
 # install MADlib
 echo -n "Installing MADlib..."
