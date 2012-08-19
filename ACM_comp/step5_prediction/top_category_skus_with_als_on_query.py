@@ -4,13 +4,14 @@ import csv
 
 help = """
 make sure these exact files exist:
-/mnt/query_matrix.matrix.market-20-11.out.U
-/mnt/query_matrix.matrix.market-20-11.out.V
+/mnt/small_query_matrix.matrix.market-20-11.out.U
+/mnt/small_query_matrix.matrix.market-20-11.out.V
 """
 
 print "Reading in files from /mnt"
 
-predictions = open('/mnt/predictions', 'w')
+predictions = open('/mnt/small_predictions', 'w')
+predictions.write( "sku\n")
 sku_id_lookup_file = csv.reader(open('/mnt/sku_mapping'))
 
 sku_id_lookup = {}
@@ -48,8 +49,8 @@ def convert_and_multiply(u, v):
 
 # Open the files and catch all errors
 try:
-    U = open("/mnt/query_matrix.matrix.market-20-11.out.U")
-    V = open("/mnt/query_matrix.matrix.market-20-11.out.V")
+    U = open("/mnt/small_query_matrix.matrix.market-20-11.out.U")
+    V = open("/mnt/small_query_matrix.matrix.market-20-11.out.V")
 except:
     print help
 
@@ -71,11 +72,11 @@ for line in f.readlines():
         x = 1
         # Before we do this expensive prediction .. lets see if this query exists in the cache
         if line_a[1] in prediction_cache:
-            predictions.write(" ".join(map(sku_lookup, prediction_cache[line_a[1]])))
+            predictions.write( " ".join(map(sku_lookup, prediction_cache[line_a[1]])) + "\n")
         else:
         # # preform prediction from als for this query since it existed in the training set
             for j,sku in enumerate(Va):
-                p = convert_and_multiply(Ua[int(line_a[1])], sku)
+                p = convert_and_multiply(Ua[int(line_a[1])-1], sku)
                 m = min(top5)
                 if p > m:
                     idx = top5.index(m)
@@ -83,8 +84,7 @@ for line in f.readlines():
                     recs[idx] = j
             
             prediction_cache[line_a[1]] = recs;
-            predictions.write(" ".join(map(sku_lookup, recs)))
-        
+            predictions.write( " ".join(map(sku_lookup, recs)) + "\n")
 
     else:
         # we haven't seen this query before
@@ -98,13 +98,12 @@ for line in f.readlines():
             length = 0
 
         if length == 0:
-            predictions.write(" ".join(map(str, tap_out)))
+            predictions.write( " ".join(map(str, top_skus)) + "\n")
 
         else:
             while len(categories[line_a[2]]) < 5:
                 categories[line_a[2]].append(top_skus[count])
                 count += 1
-            
-            predictions.write(" ".join(categories[line_a[2]]))
+            predictions.write( " ".join(categories[line_a[2]]) + "\n")
 
-print "Done!  your submission file is here /mnt/predictions"
+print "Done!  your submission file is here /mnt/small_predictions"
