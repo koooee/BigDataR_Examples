@@ -1,6 +1,5 @@
 -- Get the top 5 products for each category
 
-drop table if exists category_counts;
 create table category_counts as
 select
   category
@@ -12,7 +11,6 @@ group by
   ,sku
 order by count(*);
 
-drop table if exists top_5_skus_by_category;
 create table top_5_skus_by_category as 
 select
   a.category
