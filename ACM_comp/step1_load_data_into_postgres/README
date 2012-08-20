@@ -1,0 +1,17 @@
+**************
+* Objective  *
+**************
+Download the data and start a postgres database for ad-hoc analysis
+
+**************
+*  Solution  *
+**************
+runme.sh -- Start the postgres database
+runme.sh.old_DONT_RUN_THIS_ONE -- Download all the data. start postgres. install madlib. load the data into postgres
+(depreciated this because I baked the image with the data for easy access, but if someone wants to modify this an run on their favorite linux distribution they are more than welcome to do so.)
+
+**************
+*   Value    *
+**************
+easy access to all the data so you can ask questions about it
+like "what are the total number of clicks by users?"
