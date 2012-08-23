@@ -18,7 +18,7 @@ make sure these exact files exist:
 """.format(prefix)
 
 # Open some files
-predictions = open("/mnt/{0}predictions".format(prefix), 'w')
+predictions = open("/mnt/{0}_predictions".format(prefix), 'w')
 predictions.write("sku\n")
 sku_id_lookup_file = csv.reader(open("/mnt/{0}_sku_mapping".format(prefix)))
 test = open("/mnt/{0}_random_test".format(prefix), 'r')
@@ -122,4 +122,4 @@ for line in test.readlines():
             
             predictions.write(" ".join(categories[line_a[2]]) + "\n")
 
-print "Done!  your submission file is here /mnt/{0}_predictions".format(prefix)
+print "Done!  your prediction file is here /mnt/{0}_predictions".format(prefix)

@@ -126,7 +126,7 @@ select case when
 
 
 
-
+-- copy to local for prediction algorithm
 COPY small_data_sku_mapping to '/mnt/small_data_sku_mapping' with csv;
 COPY big_data_query_matrix TO '/mnt/big_data_query_matrix' WITH CSV;
 COPY big_data_click_matrix TO '/mnt/big_data_click_matrix' WITH CSV;

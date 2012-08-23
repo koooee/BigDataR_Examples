@@ -4,16 +4,27 @@
 # Use that to compute MAP
 
 # usage: python test.py test_file prediction file num_iterations
-
+import sys
+import os
 import csv
 import numpy
+
 help = """
 usage: python test.py test_file predictions_file
 """
+
 maps = []  # Final list of evaluation metrics
-for i in range(1, 11):
-    os.system("(psql -f random_sample.sql acm > 2&1) > /dev/null")
-    os.system("(psql -f extract_query_click_matrix.sql > 2>&1) > /dev/null")
+for iteration in range(1, 11):
+    print "Running Iteration {0}".format(iteration)
+    print "Sampling Data ..."
+    if os.system("(psql -f random_sample.sql acm 2>&1) > /dev/null") != 0:
+        print "Failed to run random sampling"
+        sys.exit(1)
+
+    print "Extracting Query Matrix ..."
+    if os.system("(psql -f extract_query_click_matrix.sql acm 2>&1) > /dev/null") != 0:
+        print "Failed to run query matrix extraction"
+        sys.exit(1)
     
     try:
         test_file = csv.reader(open('/mnt/small_data_random_test'))
@@ -26,7 +37,6 @@ for i in range(1, 11):
     false_positives = 0
 
     # we don't need the header
-    test_file.next()
     predictions_file.next()
 
 # this is a VERY crude form of calculating precision
@@ -46,7 +56,7 @@ for i in range(1, 11):
         precisions.append(precision)
 
     map_at_5 = numpy.mean(precisions)
-    print "MAP@5 = {0} for iteration {1}".format(map_at_5, i)
+    print "MAP@5 = {0} for iteration {1}".format(map_at_5, iteration)
     maps.append(map_at_5)
 
 print "MAP across iterations: {0}".format(numpy.mean(maps))

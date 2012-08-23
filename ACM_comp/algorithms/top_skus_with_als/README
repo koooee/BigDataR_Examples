@@ -1,0 +1,18 @@
+Files
+-----
+load_data.sql - take the raw data and put it into postgres
+
+create_mapping.sql - make mappings for raw indexes to integers
+
+mapping_join.sql - join back to the other tables to get a table with raw and integer ids
+
+extract_query_click_matrix.sql - pull the data into working matricies	
+
+create_benchmarks.sql - create basic benchmark recommenders for when we don't have query information
+( these can be converted into user co-occurrence for production)
+
+random_sample.sql - take a random sample of the dataset for train and testing purposes
+
+predictions.py - generate predictions based on the output files
+
+test.py - work in progress

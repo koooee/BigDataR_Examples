@@ -1,5 +1,5 @@
 -- do this because the join would take to long
-alter table small_data_train_ids add row_id serial;
+--alter table small_data_train_ids add row_id serial;
 
 drop table if exists small_data_random_train;
 create table small_data_random_train as 
@@ -66,8 +66,8 @@ from small_data_random_train;
 -- from big_data_random_train;
 
 copy small_data_temp to '/mnt/small_data_sku_mapping' with csv;
-copy small_data_random_train to '/mnt/small_data_train_ids' with csv;
-copy small_data_random_test to '/mnt/small_data_test_ids' with csv;
+copy small_data_random_train to '/mnt/small_data_random_train' with csv;
+copy small_data_random_test to '/mnt/small_data_random_test' with csv;
 -- copy big_data_temp to '/mnt/big_data_sku_mapping' with csv;
 -- copy big_data_train_ids to '/mnt/big_data_train_ids' with csv;
 -- copy big_data_test_ids to '/mnt/big_data_test_ids' with csv;
