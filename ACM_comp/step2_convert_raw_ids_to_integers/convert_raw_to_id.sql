@@ -36,11 +36,5 @@ where
 
 -- clean up
 drop table big_data_train_userid_mapping;
-drop table big_data_train_sku_mapping;
 drop table big_data_train_category_mapping;
 drop table big_data_train_query_mapping;
-drop table big_data_train_category_mapping;
-drop table big_data_train_query_mapping;
-drop table big_data_train_sku_mapping;
-drop table big_data_train_userid_mapping;
-
