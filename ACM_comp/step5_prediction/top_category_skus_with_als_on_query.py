@@ -75,12 +75,12 @@ for line in f.readlines():
         else:
         # # preform prediction from als for this query since it existed in the training set
             for j,sku in enumerate(Va):
-                p = convert_and_multiply(Ua[int(line_a[1])-1], sku)
+                p = convert_and_multiply(Ua[int(line_a[1])], sku)
                 m = min(top5)
                 if p > m:
                     idx = top5.index(m)
                     top5[idx] = p
-                    recs[idx] = j
+                    recs[idx] = j+1
                     # Need to do this since we are using MAP
                     top5.sort(reverse=True)
 
