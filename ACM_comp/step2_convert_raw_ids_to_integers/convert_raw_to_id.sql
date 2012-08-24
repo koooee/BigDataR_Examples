@@ -1,4 +1,8 @@
 -- convert columns to a id mapping
+drop table if exists big_data_userid_mapping;
+drop table if exists big_data_sku_mapping;
+drop table if exists big_data_category_mapping;
+drop table if exists big_data_query_mapping;
 create table big_data_train_userid_mapping as select distinct userid from big_data_train;
 create table big_data_train_sku_mapping as select distinct sku from big_data_train;
 create table big_data_train_category_mapping as select distinct category from big_data_train;
@@ -33,8 +37,3 @@ where
 	and bdt.sku = bdtsm.sku
 	and bdt.category = bdtcm.category
 	and bdt.query = bdtqm.query;
-
--- clean up
-drop table big_data_train_userid_mapping;
-drop table big_data_train_category_mapping;
-drop table big_data_train_query_mapping;

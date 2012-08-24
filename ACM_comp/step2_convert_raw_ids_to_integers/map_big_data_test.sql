@@ -1,7 +1,8 @@
+drop table if exists big_data_test_query;
 create table big_data_test_query as 
 select distinct query from big_data_test;
 
-
+drop table if exists big_data_test_query_mapping;
 create table big_data_test_query_mapping as 
 select 
   a.query
@@ -10,6 +11,7 @@ from big_data_test_query a
 left join big_data_train_query_mapping b 
 on a.query=b.query;
 
+drop table if exists big_data_test_file;
 create table big_data_test_file as
 select
   a.query
