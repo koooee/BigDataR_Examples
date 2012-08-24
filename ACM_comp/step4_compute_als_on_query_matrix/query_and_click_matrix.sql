@@ -1,4 +1,3 @@
-
 drop table if exists click_matrix;
 create table click_matrix as 
 select 

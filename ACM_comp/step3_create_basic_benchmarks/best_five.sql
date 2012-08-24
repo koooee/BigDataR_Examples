@@ -1,3 +1,4 @@
+drop table if exists best_five;
 create table best_five as 
 select
   sku

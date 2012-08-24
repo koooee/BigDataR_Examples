@@ -13,6 +13,7 @@ alter table big_data_train_sku_mapping add sku_id serial;
 alter table big_data_train_userid_mapping add userid_id serial;
 
 -- join back to main table so we can get the pretty ids
+drop table if exists big_data_train_ids;
 create table big_data_train_ids as select
 	bdt.userid
 	,userid_id
