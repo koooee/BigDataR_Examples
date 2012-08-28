@@ -1,0 +1,9 @@
+For those who just want to see text scroll across your screen:
+--------------------------------------------------------------
+./runme.sh
+
+
+For the control freaks:
+-----------------------
+cd into the directories step${x}
+peek at the code .. run the runme.sh scripts
