@@ -31,6 +31,12 @@ for line in category_file:
         categories[line[0]] = list()
         categories[line[0]].append(line[1])
 
+# query predictions
+query_recs = open('/mnt/output5.recommended-items.mtx')
+
+# burn the first 4 since this is the matrix market header
+query_recs_mapping = [v.strip().split('      ')  for k,v in enumerate(query_recs.read().split('\n')) if k > 3]
+query_recs_mapping = [[item.strip() for item in row] for row in query_recs_mapping]
 
 # lookup a real sku from its sku id
 def sku_lookup(s):
@@ -68,25 +74,27 @@ for line in f.readlines():
     recs=[0]*5
     line_a = line.strip().split(",")
     if line_a[1] != '':
+        
         x = 1
-        # Before we do this expensive prediction .. lets see if this query exists in the cache
-        if line_a[1] in prediction_cache:
-            predictions.write(" ".join(map(sku_lookup, prediction_cache[line_a[1]])) + "\n")
-        else:
-        # # preform prediction from als for this query since it existed in the training set
-            for j,sku in enumerate(Va):
-                p = convert_and_multiply(Ua[int(line_a[1])], sku)
-                m = min(top5)
-                if p > m:
-                    idx = top5.index(m)
-                    top5[idx] = p
-                    recs[idx] = j+1
-                    # Need to do this since we are using MAP
-                    top5.sort(reverse=True)
+        # # Before we do this expensive prediction .. lets see if this query exists in the cache
+        # if line_a[1] in prediction_cache:
+        #     predictions.write(" ".join(map(sku_lookup, prediction_cache[line_a[1]])) + "\n")
+        # else:
+        # # # preform prediction from als for this query since it existed in the training set
+        #     for j,sku in enumerate(Va):
+        #         p = convert_and_multiply(Ua[int(line_a[1])], sku)
+        #         m = min(top5)
+        #         if p > m:
+        #             idx = top5.index(m)
+        #             top5[idx] = p
+        #             recs[idx] = j+1
+        #             # Need to do this since we are using MAP
+        #             top5.sort(reverse=True)
 
-            temp = sorted(zip(recs, top5), key=lambda k: k[1])
-            recs, top5 = zip(*temp)
-            predictions.write(" ".join(map(sku_lookup, recs)) + "\n")
+        #     temp = sorted(zip(recs, top5), key=lambda k: k[1])
+        #     recs, top5 = zip(*temp)
+        #    predictions.write(" ".join(map(sku_lookup, recs)) + "\n")
+        predictions.write(" ".join(map(sku_lookup, query_recs_mapping[int(line_a[1])])) + "\n")
         
 
     else:

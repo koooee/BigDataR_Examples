@@ -1,8 +1,9 @@
 #!/bin/bash -e                                                                                                                                                                                      
 
-# Remove because is was baked in here stale                                                                                                                                                         
-sudo rm -r ~/Examples
-
+# Remove because is was baked in here stale                                                                                                                                                        
+if [ -d ~/Examples ]; then 
+    sudo rm -r ~/Examples
+fi
 
 # Get the new code                                                                                                                                                                                  
 git clone git://github.com/koooee/BigDataR_Examples.git ~/Examples

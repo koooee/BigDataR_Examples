@@ -14,4 +14,14 @@ cpus=$(cat /proc/cpuinfo | grep -c processor)
 
 pushd /mnt # Ensure graphlab writes to /mnt
 pmf /mnt/query_matrix.matrix.market 0 --scheduler="round_robin(max_iterations=10,block_size=1)" --matrixmarket=true --lambda=0.065 --ncpus $cpus
+
+if [ -f output ]; then rm output; fi
+if [ -f outpute ]; then rm outpute; fi
+
+ln -s /mnt/*.U /mnt/output
+ln -s /mnt/*.V /mnt/outpute
+
+echo "Generating Recommendations from the query matrix ... "
+(glcluster /mnt/output 8 5 0 --matrixmarket=true --training_ref='/mnt/query_matrix.matrix.market' --ncpus=$cpus 2>&1) > /dev/null
+if [ $? -eq 0 ]; then echo "Error Generating Query Recommendations.  Make sure these files exist /mnt/*.V and /mnt/*.U otherwise the factorization didn't work properly"; fi
 popd
