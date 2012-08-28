@@ -2,7 +2,7 @@
 
 # Remove because is was baked in here stale                                                                                                                                                        
 if [ -d ~/Examples ]; then 
-    sudo rm -r ~/Examples
+    mv ~/Examples ~/Examples_old
 fi
 
 # Get the new code                                                                                                                                                                                  

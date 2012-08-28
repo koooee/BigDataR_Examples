@@ -1,3 +1,4 @@
+#!/bin/bash -e
 (psql -f convert_raw_to_id.sql acm 2>&1) > /dev/null
  if [ $? -eq 0 ]; then echo "Converted RawIDs to IntegerIDs on train data"; else echo "Failed to convert IDs for train data, check if the table exists"; fi
 

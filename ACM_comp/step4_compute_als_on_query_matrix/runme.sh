@@ -1,3 +1,4 @@
+#!/bin/bash -e
 # Extract the query matrix
 # convert it to matrix market format for graphlab
 # run als to get matrix decomposition of query features and product features to use for prediction
@@ -21,7 +22,7 @@ if [ -f outpute ]; then rm outpute; fi
 ln -s /mnt/*.U /mnt/output
 ln -s /mnt/*.V /mnt/outpute
 
-echo "Generating Recommendations from the query matrix ... "
+echo -n "Generating Recommendations from the query matrix ... "
 (glcluster /mnt/output 8 5 0 --matrixmarket=true --training_ref='/mnt/query_matrix.matrix.market' --ncpus=$cpus 2>&1) > /dev/null
-if [ $? -eq 0 ]; then echo "Error Generating Query Recommendations.  Make sure these files exist /mnt/*.V and /mnt/*.U otherwise the factorization didn't work properly"; fi
+if [ $? -eq 0 ]; then echo "Done."; else echo "Error Generating Query Recommendations.  Make sure these files exist /mnt/*.V and /mnt/*.U otherwise the factorization didn't work properly"; fi
 popd
