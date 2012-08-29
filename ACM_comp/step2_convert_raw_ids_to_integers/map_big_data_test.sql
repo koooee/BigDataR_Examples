@@ -19,6 +19,7 @@ select
   ,a.category
 from big_data_test a
 join big_data_test_query_mapping b
-on a.query=b.query;
+on a.query=b.query
+order by row_id;
 
 COPY big_data_test_file TO '/mnt/big_data_test_file' WITH CSV;

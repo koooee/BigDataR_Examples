@@ -11,6 +11,9 @@ alter table big_data_train_category_mapping add category_id serial;
 alter table big_data_train_query_mapping add query_id serial;
 alter table big_data_train_sku_mapping add sku_id serial;
 alter table big_data_train_userid_mapping add userid_id serial;
+-- add a row_id so we can keep ordering on the test datset
+-- do this on other tables where you want to preserve the order
+alter table big_data_train add row_id serial;
 
 -- join back to main table so we can get the pretty ids
 drop table if exists big_data_train_ids;
@@ -25,6 +28,7 @@ create table big_data_train_ids as select
 	,query_id
 	,click_time
 	,query_time
+	,bdt.row_id
 -- a note on alias convention: first letter then any letter after an underscore
 -- example: big_data_train -> b*_d*_t -> bdt
 
