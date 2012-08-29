@@ -2,15 +2,11 @@ import sys
 import numpy
 import csv
 
-help = """
-make sure these exact files exist:
-/mnt/query_matrix.matrix.market-20-11.out.U
-/mnt/query_matrix.matrix.market-20-11.out.V
-"""
-
 print "Reading in files from /mnt"
 
 predictions = open('/mnt/predictions', 'w')
+test_file = open('/mnt/big_data_test_file', 'r')
+query_recs = open('/mnt/output5.recommended-items.mtx')
 sku_id_lookup_file = csv.reader(open('/mnt/sku_mapping'))
 
 sku_id_lookup = {}
@@ -31,14 +27,11 @@ for line in category_file:
         categories[line[0]] = list()
         categories[line[0]].append(line[1])
 
-# query predictions
-query_recs = open('/mnt/output5.recommended-items.mtx')
-
 # burn the first 4 since this is the matrix market header
 query_recs_mapping = [v.strip().split('      ')  for k,v in enumerate(query_recs.read().split('\n')) if k > 3]
 query_recs_mapping = [[item.strip() for item in row] for row in query_recs_mapping]
 
-# lookup a real sku from its sku id
+# helper function to lookup a real sku from its sku id
 def sku_lookup(s):
     try:
         return str(sku_id_lookup[str(s)])
@@ -46,57 +39,11 @@ def sku_lookup(s):
         print "ERROR: this sku {0} does not exist!".format(s)
         sys.exit(0)
 
-
-# convert the strings to floats and do the dot product of vectors
-# this will return our prediction from als
-def convert_and_multiply(u, v):
-    return(numpy.dot(map(float, u.split()), map(float, v.split())))
-
-# Open the files and catch all errors
-try:
-    U = open("/mnt/query_matrix.matrix.market-20-11.out.U")
-    V = open("/mnt/query_matrix.matrix.market-20-11.out.V")
-except:
-    print help
-
-
-# Bit of cleanup, we do [4:] because we want to skip the first 3 lines in the file
-# that contain header information
-Ua = map(lambda s: s.replace("\n", ""), U.readlines()[4:]);
-Va = map(lambda s: s.replace("\n", ""), V.readlines()[4:]);
-
-f = open('/mnt/big_data_test_file', 'r')
-
 print "Generating Predictions ..."
-prediction_cache = {}
-for line in f.readlines():
-    top5=[0]*5
-    recs=[0]*5
+for line in test_file.readlines():
     line_a = line.strip().split(",")
     if line_a[1] != '':
-        
-        x = 1
-        # # Before we do this expensive prediction .. lets see if this query exists in the cache
-        # if line_a[1] in prediction_cache:
-        #     predictions.write(" ".join(map(sku_lookup, prediction_cache[line_a[1]])) + "\n")
-        # else:
-        # # # preform prediction from als for this query since it existed in the training set
-        #     for j,sku in enumerate(Va):
-        #         p = convert_and_multiply(Ua[int(line_a[1])], sku)
-        #         m = min(top5)
-        #         if p > m:
-        #             idx = top5.index(m)
-        #             top5[idx] = p
-        #             recs[idx] = j+1
-        #             # Need to do this since we are using MAP
-        #             top5.sort(reverse=True)
-
-        #     temp = sorted(zip(recs, top5), key=lambda k: k[1])
-        #     recs, top5 = zip(*temp)
-        #    predictions.write(" ".join(map(sku_lookup, recs)) + "\n")
         predictions.write(" ".join(map(sku_lookup, query_recs_mapping[int(line_a[1])])) + "\n")
-        
-
     else:
         # we haven't seen this query before
         # recommend from our category top 5
@@ -108,9 +55,13 @@ for line in f.readlines():
         except:
             length = 0
 
+        # we haven't seen this category before so just output the top 5 skus
         if length == 0:
             predictions.write(" ".join(map(str, top_skus)) + "\n")
 
+        # otherwise, use the top 5 skus in this category
+        # notice, some categories don't have more than 5 skus so we just fill
+        # the empty ones with the top 5 skus
         else:
             while len(categories[line_a[2]]) < 5:
                 categories[line_a[2]].append(top_skus[count])
